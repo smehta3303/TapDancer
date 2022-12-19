@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "tapdancer"
+version = "0.1.0"
+description = ""
+authors = ["Sahil Mehta <smehta3303@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+bleak = "^0.19.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
