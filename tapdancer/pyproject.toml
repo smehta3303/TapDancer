@@ -6,8 +6,9 @@ authors = ["Sahil Mehta <smehta3303@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-bleak = "^0.19.5"
+python = "^3.9"
+bleak = "0.19.5"
+black = "22.12.0"
 
 [build-system]
 requires = ["poetry-core"]
