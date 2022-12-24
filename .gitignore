@@ -1,4 +1,3 @@
 #Don't track the generated files
 tapdancer/poetry.lock
 *__pycache__*
-.vs/
