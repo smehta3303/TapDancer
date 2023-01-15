@@ -11,6 +11,7 @@ class Led {
     void Initialize() const;
     void On() const;
     void Off() const;
+    void Toggle() const;
 
  private:
     const uint8_t pin_;

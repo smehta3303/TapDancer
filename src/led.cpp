@@ -13,3 +13,13 @@ void Led::On() const {
 void Led::Off() const {
     digitalWrite(pin_, LOW);
 }
+
+void Led::Toggle() const {
+    uint8_t status = digitalRead(pin_);
+
+    if(status == HIGH) {
+        Off();
+    } else {
+        On();
+    }
+}
