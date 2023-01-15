@@ -1,8 +1,10 @@
 #ifndef INCLUDE_RELAY_H_
 #define INCLUDE_RELAY_H_
 
+#include <stdint.h>
+
 class Relay {
-  public:
+ public:
     Relay(const uint8_t pin, const bool log=false)
     : pin_(pin),
       log_(log) {}
@@ -11,10 +13,10 @@ class Relay {
     void On() const;
     void Off() const;
     
-  private:
+ private:
     const uint8_t pin_;
     const bool log_;
 
 };
 
-#endif  //INCLUDE_RELAY_H_
+#endif  // INCLUDE_RELAY_H_

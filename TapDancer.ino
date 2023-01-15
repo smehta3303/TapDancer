@@ -1,5 +1,5 @@
-#include "hardware.h"
-#include "relay.h"
+#include "include/hardware.h"
+#include "include/relay.h"
 
 Hardware hw;
 
@@ -10,7 +10,7 @@ void setup() {
     hw.Initialize();
 
     // Turn on status led
-    hw.SetStatusLed(true);
+    // hw.GetStatusLed().On();
 }
 
 void loop() {
