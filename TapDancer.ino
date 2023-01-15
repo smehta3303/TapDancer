@@ -10,7 +10,7 @@ void setup() {
     hw.Initialize();
 
     // Turn on status led
-    hw.SetStatusLed(true);
+    // hw.GetStatusLed().On();
 }
 
 void loop() {

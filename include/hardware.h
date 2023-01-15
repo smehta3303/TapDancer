@@ -15,7 +15,16 @@ class Hardware {
     , relay_5_(Relay_5_Pin)
     , relay_6_(Relay_6_Pin)
     , relay_7_(Relay_7_Pin)
-    , relay_8_(Relay_8_Pin) {}
+    , relay_8_(Relay_8_Pin)
+    , status_led_(Status_Led_Pin)
+    , led_1_(Led_1_Pin)
+    , led_2_(Led_2_Pin)
+    , led_3_(Led_3_Pin)
+    , led_4_(Led_4_Pin)
+    , led_5_(Led_5_Pin)
+    , led_6_(Led_6_Pin)
+    , led_7_(Led_7_Pin)
+    , led_8_(Led_8_Pin) {}
 
     void Initialize() const;
     
@@ -28,7 +37,16 @@ class Hardware {
     Relay& GetRelay7() const;
     Relay& GetRelay8() const;
 
-    void SetStatusLed(const bool on) const;
+    Led& GetStatusLed() const;
+    Led& GetLed1() const;
+    Led& GetLed2() const;
+    Led& GetLed3() const;
+    Led& GetLed4() const;
+    Led& GetLed5() const;
+    Led& GetLed6() const;
+    Led& GetLed7() const;
+    Led& GetLed8() const;
+
     void TestOn() const;
     void TestOff() const;
 
@@ -43,7 +61,17 @@ class Hardware {
     static constexpr uint8_t Relay_7_Pin = 6;
     static constexpr uint8_t Relay_8_Pin = 7;
     
-    // LEDs
+    // Relays
+    mutable Relay relay_1_;
+    mutable Relay relay_2_;
+    mutable Relay relay_3_;
+    mutable Relay relay_4_;
+    mutable Relay relay_5_;
+    mutable Relay relay_6_;
+    mutable Relay relay_7_;
+    mutable Relay relay_8_;
+
+    // LED pins
     static constexpr uint8_t Status_Led_Pin = LED_BUILTIN;   // pin 13
     static constexpr uint8_t Led_1_Pin = 8;
     static constexpr uint8_t Led_2_Pin = 9;
@@ -54,17 +82,16 @@ class Hardware {
     static constexpr uint8_t Led_7_Pin = 22;
     static constexpr uint8_t Led_8_Pin = 21;
 
-    
-    mutable Relay relay_1_;
-    mutable Relay relay_2_;
-    mutable Relay relay_3_;
-    mutable Relay relay_4_;
-    mutable Relay relay_5_;
-    mutable Relay relay_6_;
-    mutable Relay relay_7_;
-    mutable Relay relay_8_;
-
-    
+    // LEDs
+    mutable Led status_led_;
+    mutable Led led_1_;
+    mutable Led led_2_;
+    mutable Led led_3_;
+    mutable Led led_4_;
+    mutable Led led_5_;
+    mutable Led led_6_;
+    mutable Led led_7_;
+    mutable Led led_8_;
    
 
 };
