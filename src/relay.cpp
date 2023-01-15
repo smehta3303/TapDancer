@@ -1,5 +1,5 @@
 #include "Arduino.h"
-#include "relay.h"
+#include "../include/relay.h"
 
 void Relay::Initialize() const {
     pinMode(pin_, OUTPUT);

@@ -1,5 +1,5 @@
-#include "hardware.h"
-#include "relay.h"
+#include "include/hardware.h"
+#include "include/relay.h"
 
 Hardware hw;
 

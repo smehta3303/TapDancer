@@ -1,5 +1,5 @@
 #include "Arduino.h"
-#include "hardware.h"
+#include "../include/hardware.h"
 
 void Hardware::Initialize() const {
     relay_1_.Initialize();
@@ -11,7 +11,7 @@ void Hardware::Initialize() const {
     relay_7_.Initialize();
     relay_8_.Initialize();
 
-    pinMode(Status_Led, OUTPUT);
+    pinMode(Status_Led_Pin, OUTPUT);
 }
 
 Relay& Hardware::GetRelay1() const {
@@ -48,9 +48,9 @@ Relay& Hardware::GetRelay8() const {
 
 void Hardware::SetStatusLed(const bool on) const {
     if (on) {
-        digitalWrite(Status_Led, HIGH);
+        digitalWrite(Status_Led_Pin, HIGH);
     } else {
-        digitalWrite(Status_Led, LOW);
+        digitalWrite(Status_Led_Pin, LOW);
     }
 }
 
