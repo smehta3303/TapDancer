@@ -2,11 +2,14 @@
 #define INCLUDE_LED_H_
 
 #include <stdint.h>
+#include "gpio.h"
 
 class Led {
  public:
-    Led (const uint8_t pin)
-    : pin_(pin) {}
+    Led (const char* name, const Gpio& pin, const bool debug)
+    : name_(name)
+    , pin_(pin)
+    , debug_(debug) {}
 
     void Initialize() const;
     void On() const;
@@ -14,8 +17,9 @@ class Led {
     void Toggle() const;
 
  private:
-    const uint8_t pin_;
-
+    const char* name_;
+    const Gpio& pin_;
+    const bool debug_;
 };
 
 #endif  // INCLUDE_LED_H_

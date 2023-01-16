@@ -2,20 +2,23 @@
 #define INCLUDE_RELAY_H_
 
 #include <stdint.h>
+#include "gpio.h"
 
 class Relay {
  public:
-    Relay(const uint8_t pin, const bool log=false)
-    : pin_(pin),
-      log_(log) {}
+    Relay(const char* name, const Gpio& pin, const bool debug=false)
+    : name_(name) 
+    , pin_(pin)
+    , debug_(debug) {}
 
     void Initialize() const;
     void On() const;
     void Off() const;
     
  private:
-    const uint8_t pin_;
-    const bool log_;
+    const char* name_;
+    const Gpio& pin_;
+    const bool debug_;
 
 };
 
