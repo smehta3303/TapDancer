@@ -3,23 +3,20 @@
 
 
 void Led::Initialize() const {
-    pinMode(pin_, OUTPUT);
+    pin_.Initialize();
+
+    Serial.print(name_);
+    Serial.println(" Initialized");
 }
 
 void Led::On() const {
-    digitalWrite(pin_, HIGH);
+    pin_.On();
 }
 
 void Led::Off() const {
-    digitalWrite(pin_, LOW);
+    pin_.Off();
 }
 
 void Led::Toggle() const {
-    uint8_t status = digitalRead(pin_);
-
-    if(status == HIGH) {
-        Off();
-    } else {
-        On();
-    }
+    pin_.Toggle();
 }

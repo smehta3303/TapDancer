@@ -2,29 +2,48 @@
 #define INCLUDE_HARDWARE_H_
 
 #include <stdint.h>
+#include "Arduino.h"
 #include "relay.h" 
 #include "led.h"
+#include "gpio.h"
 
 class Hardware {
  public:
     Hardware() 
-    : relay_1_(Relay_1_Pin)
-    , relay_2_(Relay_2_Pin)
-    , relay_3_(Relay_3_Pin)
-    , relay_4_(Relay_4_Pin)
-    , relay_5_(Relay_5_Pin)
-    , relay_6_(Relay_6_Pin)
-    , relay_7_(Relay_7_Pin)
-    , relay_8_(Relay_8_Pin)
-    , status_led_(Status_Led_Pin)
-    , led_1_(Led_1_Pin)
-    , led_2_(Led_2_Pin)
-    , led_3_(Led_3_Pin)
-    , led_4_(Led_4_Pin)
-    , led_5_(Led_5_Pin)
-    , led_6_(Led_6_Pin)
-    , led_7_(Led_7_Pin)
-    , led_8_(Led_8_Pin) {}
+    : relay_1_pin_(0, GpioType::OUTPUT_PIN, debug_)
+    , relay_1_("Relay 1", relay_1_pin_, debug_)
+    , relay_2_pin_(1, GpioType::OUTPUT_PIN, debug_)
+    , relay_2_("Relay 2", relay_2_pin_, debug_)
+    , relay_3_pin_(2, GpioType::OUTPUT_PIN, debug_)
+    , relay_3_("Relay 3", relay_3_pin_, debug_)
+    , relay_4_pin_(3, GpioType::OUTPUT_PIN, debug_)
+    , relay_4_("Relay 4", relay_4_pin_, debug_)
+    , relay_5_pin_(4, GpioType::OUTPUT_PIN, debug_)
+    , relay_5_("Relay 5", relay_5_pin_, debug_)
+    , relay_6_pin_(5, GpioType::OUTPUT_PIN, debug_)
+    , relay_6_("Relay 6", relay_6_pin_, debug_)
+    , relay_7_pin_(6, GpioType::OUTPUT_PIN, debug_)
+    , relay_7_("Relay 7", relay_7_pin_, debug_)
+    , relay_8_pin_(7, GpioType::OUTPUT_PIN, debug_)
+    , relay_8_("Relay 8", relay_8_pin_, debug_)
+    , status_led_pin_(LED_BUILTIN, GpioType::OUTPUT_PIN, debug_)
+    , status_led_("Status Led", status_led_pin_, debug_)
+    , led_1_pin_(8, GpioType::OUTPUT_PIN, debug_)
+    , led_1_("Led 1", led_1_pin_, debug_)
+    , led_2_pin_(9, GpioType::OUTPUT_PIN, debug_)
+    , led_2_("Led 2", led_2_pin_, debug_)
+    , led_3_pin_(10, GpioType::OUTPUT_PIN, debug_)
+    , led_3_("Led 3", led_3_pin_, debug_)
+    , led_4_pin_(11, GpioType::OUTPUT_PIN, debug_)
+    , led_4_("Led 4", led_4_pin_, debug_)
+    , led_5_pin_(12 , GpioType::OUTPUT_PIN, debug_)
+    , led_5_("Led 5", led_5_pin_, debug_)
+    , led_6_pin_(23, GpioType::OUTPUT_PIN, debug_)
+    , led_6_("Led 6", led_6_pin_, debug_)
+    , led_7_pin_(22, GpioType::OUTPUT_PIN, debug_)
+    , led_7_("Led 7", led_7_pin_, debug_)
+    , led_8_pin_(21, GpioType::OUTPUT_PIN, debug_)
+    , led_8_("Led 8", led_8_pin_, debug_) {}
 
     void Initialize() const;
     
@@ -51,48 +70,49 @@ class Hardware {
     void TestOff() const;
 
  private:
+    // Misc
+    static constexpr bool debug_ = false;
+    
     // Relay pins
-    static constexpr uint8_t Relay_1_Pin = 0;
-    static constexpr uint8_t Relay_2_Pin = 1;
-    static constexpr uint8_t Relay_3_Pin = 2;
-    static constexpr uint8_t Relay_4_Pin = 3;
-    static constexpr uint8_t Relay_5_Pin = 4;
-    static constexpr uint8_t Relay_6_Pin = 5;
-    static constexpr uint8_t Relay_7_Pin = 6;
-    static constexpr uint8_t Relay_8_Pin = 7;
+    
+    mutable Gpio relay_1_pin_;
+    mutable Relay relay_1_;
     
     // Relays
-    mutable Relay relay_1_;
+    mutable Gpio relay_2_pin_;
     mutable Relay relay_2_;
+    mutable Gpio relay_3_pin_;
     mutable Relay relay_3_;
+    mutable Gpio relay_4_pin_;
     mutable Relay relay_4_;
+    mutable Gpio relay_5_pin_;
     mutable Relay relay_5_;
+    mutable Gpio relay_6_pin_;
     mutable Relay relay_6_;
+    mutable Gpio relay_7_pin_;
     mutable Relay relay_7_;
+    mutable Gpio relay_8_pin_;
     mutable Relay relay_8_;
-
-    // LED pins
-    static constexpr uint8_t Status_Led_Pin = LED_BUILTIN;   // pin 13
-    static constexpr uint8_t Led_1_Pin = 8;
-    static constexpr uint8_t Led_2_Pin = 9;
-    static constexpr uint8_t Led_3_Pin = 10;
-    static constexpr uint8_t Led_4_Pin = 11;
-    static constexpr uint8_t Led_5_Pin = 12;
-    static constexpr uint8_t Led_6_Pin = 23;
-    static constexpr uint8_t Led_7_Pin = 22;
-    static constexpr uint8_t Led_8_Pin = 21;
-
+    
     // LEDs
+    mutable Gpio status_led_pin_;
     mutable Led status_led_;
+    mutable Gpio led_1_pin_;
     mutable Led led_1_;
+    mutable Gpio led_2_pin_;
     mutable Led led_2_;
+    mutable Gpio led_3_pin_;
     mutable Led led_3_;
+    mutable Gpio led_4_pin_;
     mutable Led led_4_;
+    mutable Gpio led_5_pin_;
     mutable Led led_5_;
+    mutable Gpio led_6_pin_;
     mutable Led led_6_;
+    mutable Gpio led_7_pin_;
     mutable Led led_7_;
+    mutable Gpio led_8_pin_;
     mutable Led led_8_;
-   
 
 };
 
