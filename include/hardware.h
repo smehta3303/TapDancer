@@ -6,6 +6,7 @@
 #include "relay.h" 
 #include "led.h"
 #include "gpio.h"
+#include "switch.h"
 
 class Hardware {
  public:
@@ -43,7 +44,23 @@ class Hardware {
     , led_7_pin_(33, GpioType::OUTPUT_PIN, debug_)
     , led_7_("Led 7", led_7_pin_, debug_)
     , led_8_pin_(34, GpioType::OUTPUT_PIN, debug_)
-    , led_8_("Led 8", led_8_pin_, debug_) {}
+    , led_8_("Led 8", led_8_pin_, debug_) 
+    , fs_1_pin_(35, GpioType::INPUT_WITH_PULLUP, debug_)
+    , fs1_("Footswitch 1", fs_1_pin_, debug_)
+    , fs_2_pin_(36, GpioType::INPUT_WITH_PULLUP, debug_)
+    , fs2_("Footswitch 2", fs_2_pin_, debug_)
+    , fs_3_pin_(37, GpioType::INPUT_WITH_PULLUP, debug_)
+    , fs3_("Footswitch 3", fs_3_pin_, debug_)
+    , fs_4_pin_(38, GpioType::INPUT_WITH_PULLUP, debug_)
+    , fs4_("Footswitch 4", fs_4_pin_, debug_)
+    , fs_5_pin_(39, GpioType::INPUT_WITH_PULLUP, debug_)
+    , fs5_("Footswitch 5", fs_5_pin_, debug_)
+    , fs_6_pin_(40, GpioType::INPUT_WITH_PULLUP, debug_)
+    , fs6_("Footswitch 6", fs_6_pin_, debug_)
+    , fs_7_pin_(41, GpioType::INPUT_WITH_PULLUP, debug_)
+    , fs7_("Footswitch 7", fs_7_pin_, debug_)
+    , fs_8_pin_(23, GpioType::INPUT_WITH_PULLUP, debug_)
+    , fs8_("Footswitch 8", fs_8_pin_, debug_) {}
 
     void Initialize() const;
     
@@ -65,6 +82,15 @@ class Hardware {
     Led& GetLed6() const;
     Led& GetLed7() const;
     Led& GetLed8() const;
+
+    Switch& GetSwitch1() const;
+    Switch& GetSwitch2() const;
+    Switch& GetSwitch3() const;
+    Switch& GetSwitch4() const;
+    Switch& GetSwitch5() const;
+    Switch& GetSwitch6() const;
+    Switch& GetSwitch7() const;
+    Switch& GetSwitch8() const;
 
     void TestOn() const;
     void TestOff() const;
@@ -114,6 +140,23 @@ class Hardware {
     mutable Gpio led_8_pin_;
     mutable Led led_8_;
 
+    // Footswitches
+    mutable Gpio fs_1_pin_;
+    mutable Switch fs1_;
+    mutable Gpio fs_2_pin_;
+    mutable Switch fs2_;
+    mutable Gpio fs_3_pin_;
+    mutable Switch fs3_;
+    mutable Gpio fs_4_pin_;
+    mutable Switch fs4_;
+    mutable Gpio fs_5_pin_;
+    mutable Switch fs5_;
+    mutable Gpio fs_6_pin_;
+    mutable Switch fs6_;
+    mutable Gpio fs_7_pin_;
+    mutable Switch fs7_;
+    mutable Gpio fs_8_pin_;
+    mutable Switch fs8_;
 };
 
 #endif  // INCLUDE_HARDWARE_H_
