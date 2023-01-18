@@ -3,30 +3,49 @@
 
 
 // constants
-static constexpr uint32_t EventTimerInterval = 100 * 1000;     // 100 ms
+static constexpr uint32_t SchedulerInterval = 1000 * 1000;     // 1 s
 static constexpr uint32_t DebounceTimerInterval = 10 * 1000;   // 10 ms
 
 Hardware hw;
-
+IntervalTimer scheduler;
+volatile bool toggle = false;
+bool previous_toggle_val = toggle;
 
 void setup() {
     Serial.begin(115200);
     
     // HW setup
     hw.Initialize();
+
+    scheduler.begin(scheduler_callback, SchedulerInterval);
 }
 
-void hardware_test() {
-    // Turn on status led
-    hw.GetStatusLed().On();
+void scheduler_callback() {
+    if (toggle == false) {
+        toggle = true;
+    } else {
+        toggle = false;
+    }
+}
 
-    hw.TestOn();
-    delay(2000);
-    
-    hw.TestOff();
-    delay(2000);
+void process_events() {
+
+    bool toggle_copy = false;
+    noInterrupts();
+    toggle_copy = toggle;
+    interrupts();
+
+    if( previous_toggle_val != toggle_copy) {
+        previous_toggle_val = toggle_copy;
+
+        if(toggle_copy) {
+            hw.TestOn();
+        } else {
+            hw.TestOff();
+        }
+    }
 }
 
 void loop() {
-    hardware_test();
+    process_events();
 }
