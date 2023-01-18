@@ -3,13 +3,22 @@
 
 
 // constants
-static constexpr uint32_t SchedulerInterval = 1000 * 1000;     // 1 s
-static constexpr uint32_t DebounceTimerInterval = 10 * 1000;   // 10 ms
+static constexpr uint16_t DebounceTimerInterval = 10 * 1000;    // 10 ms
+static constexpr uint8_t LoopPeriod = 100;      // 100 ms
+
+uint32_t time_since_last_run = 0;
 
 Hardware hw;
-IntervalTimer scheduler;
+IntervalTimer debouncer;
 volatile bool toggle = false;
 bool previous_toggle_val = toggle;
+
+uint8_t previous_pin_state = 1;
+uint8_t debounce_count = 0;
+
+SwitchState previous_switch_state = SwitchState::UNINITIALIZED;
+SwitchState switch_state = SwitchState::UNINITIALIZED;
+
 
 void setup() {
     Serial.begin(115200);
@@ -17,7 +26,8 @@ void setup() {
     // HW setup
     hw.Initialize();
 
-    scheduler.begin(scheduler_callback, SchedulerInterval);
+    debouncer.begin(debounce_callback, DebounceTimerInterval);
+
 }
 
 void scheduler_callback() {
@@ -28,24 +38,29 @@ void scheduler_callback() {
     }
 }
 
+void debounce_callback() {
+    hw.GetSwitch1().Debounce();
+}
+
 void process_events() {
-
-    bool toggle_copy = false;
-    noInterrupts();
-    toggle_copy = toggle;
-    interrupts();
-
-    if( previous_toggle_val != toggle_copy) {
-        previous_toggle_val = toggle_copy;
-
-        if(toggle_copy) {
-            hw.TestOn();
-        } else {
-            hw.TestOff();
+    switch_state = hw.GetSwitch1().GetState();
+    
+    if (previous_switch_state != switch_state) {
+        previous_switch_state = switch_state;
+        if(switch_state == SwitchState::PRESSED) {
+            Serial.println("PRESSED");
+        } else if(switch_state == SwitchState::RELEASED) {
+            Serial.println("RELEASED");
         }
     }
 }
 
 void loop() {
-    process_events();
+    uint32_t current_ticks_ms = millis();
+    if((current_ticks_ms - time_since_last_run) >= LoopPeriod) {
+        time_since_last_run = current_ticks_ms;
+
+        process_events();
+        
+    }
 }
