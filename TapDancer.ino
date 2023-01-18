@@ -3,13 +3,12 @@
 
 
 // constants
-static constexpr uint32_t SchedulerInterval = 1000 * 1000;     // 1 s
-static constexpr uint32_t DebounceTimerInterval = 10 * 1000;   // 10 ms
+static constexpr uint16_t DebounceTimerInterval = 10 * 1000;    // 10 ms
+static constexpr uint8_t LoopPeriod = 100;      // 100 ms
+elapsedMillis run_interval = 0;
 
 Hardware hw;
-IntervalTimer scheduler;
-volatile bool toggle = false;
-bool previous_toggle_val = toggle;
+IntervalTimer debouncer;
 
 void setup() {
     Serial.begin(115200);
@@ -17,35 +16,29 @@ void setup() {
     // HW setup
     hw.Initialize();
 
-    scheduler.begin(scheduler_callback, SchedulerInterval);
+    debouncer.begin(debounce_callback, DebounceTimerInterval);
+
 }
 
-void scheduler_callback() {
-    if (toggle == false) {
-        toggle = true;
-    } else {
-        toggle = false;
-    }
+void debounce_callback() {
+    hw.GetSwitch1().Debounce();
 }
 
 void process_events() {
+    SwitchState switch_state = hw.GetSwitch1().GetState();
 
-    bool toggle_copy = false;
-    noInterrupts();
-    toggle_copy = toggle;
-    interrupts();
-
-    if( previous_toggle_val != toggle_copy) {
-        previous_toggle_val = toggle_copy;
-
-        if(toggle_copy) {
-            hw.TestOn();
-        } else {
-            hw.TestOff();
-        }
+    if(switch_state == SwitchState::PRESSED) {
+        hw.GetLed1().On();
+    } else {
+        hw.GetLed1().Off();
     }
 }
 
 void loop() {
-    process_events();
+    if(run_interval >= LoopPeriod) {
+        run_interval = 0;
+
+        process_events();
+        
+    }
 }

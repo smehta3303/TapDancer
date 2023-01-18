@@ -6,6 +6,7 @@
 enum GpioType {
     UNKNOWN_PIN,
     INPUT_PIN,
+    INPUT_WITH_PULLUP,
     OUTPUT_PIN,
 };
 

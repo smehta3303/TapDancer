@@ -20,6 +20,15 @@ void Hardware::Initialize() const {
     led_6_.Initialize();
     led_7_.Initialize();
     led_8_.Initialize();
+
+    fs1_.Initialize();
+    fs2_.Initialize();
+    fs3_.Initialize();
+    fs4_.Initialize();
+    fs5_.Initialize();
+    fs6_.Initialize();
+    fs7_.Initialize();
+    fs8_.Initialize();
 }
 
 Relay& Hardware::GetRelay1() const {
@@ -88,6 +97,38 @@ Led& Hardware::GetLed7() const {
 
 Led& Hardware::GetLed8() const {
     return led_8_;
+}
+
+Switch& Hardware::GetSwitch1() const {
+    return fs1_;
+}
+
+Switch& Hardware::GetSwitch2() const {
+    return fs2_;
+}
+
+Switch& Hardware::GetSwitch3() const {
+    return fs3_;
+}
+
+Switch& Hardware::GetSwitch4() const {
+    return fs4_;
+}
+
+Switch& Hardware::GetSwitch5() const {
+    return fs5_;
+}
+
+Switch& Hardware::GetSwitch6() const {
+    return fs6_;
+}
+
+Switch& Hardware::GetSwitch7() const {
+    return fs7_;
+}
+
+Switch& Hardware::GetSwitch8() const {
+    return fs8_;
 }
 
 // Sanity test, turn everything on
