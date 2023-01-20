@@ -21,6 +21,16 @@ void Hardware::Initialize() const {
     led_7_.Initialize();
     led_8_.Initialize();
 
+    led_1_.Off();
+    led_2_.Off();
+    led_3_.Off();
+    led_4_.Off();
+    led_5_.Off();
+    led_6_.Off();
+    led_7_.Off();
+    led_8_.Off();
+
+
     fs1_.Initialize();
     fs2_.Initialize();
     fs3_.Initialize();
