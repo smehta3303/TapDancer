@@ -33,6 +33,12 @@ void Gpio::On() const {
     }
 }
 
+void Gpio::On(const uint8_t duty_cycle) const {
+    if(type_ == GpioType::OUTPUT_PIN) {
+        analogWrite(pin_, duty_cycle);
+    }
+}
+
 void Gpio::Off() const {
     if (type_ == GpioType::OUTPUT_PIN) {
         digitalWrite(pin_, LOW);
