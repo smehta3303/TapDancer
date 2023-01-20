@@ -22,13 +22,14 @@ class Gpio {
          const GpioType type, 
          const bool debug=false, 
          const ActiveLevel active_level=ActiveLevel::UNKNOWN_LEVEL) 
-    : pin_(pin)
-    , type_(type)
-    , active_level_(active_level)
-    , debug_(debug) {}
+    : pin_(pin),
+      type_(type),
+      active_level_(active_level),
+      debug_(debug) {}
 
     void Initialize() const;
     void On() const;
+    void On(const uint8_t duty_cycle) const;
     void Off() const;
     void Toggle() const;
     uint8_t Read() const;

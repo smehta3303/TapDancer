@@ -14,12 +14,12 @@ enum SwitchState {
 class Switch {
  public:
     Switch (const char* name, const Gpio& pin, const bool debug)
-    : name_(name)
-    , pin_(pin)
-    , state_(SwitchState::UNINITIALIZED)
-    , debug_(debug)
-    , debounce_count_(0)
-    , previous_switch_state_(LOW) {}
+    : name_(name),
+      pin_(pin),
+      state_(SwitchState::UNINITIALIZED),
+      debug_(debug),
+      debounce_count_(0),
+      previous_switch_state_(LOW) {}
 
     void Initialize() const;
     void Debounce() const;

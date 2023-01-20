@@ -7,9 +7,9 @@
 class Relay {
  public:
     Relay(const char* name, const Gpio& pin, const bool debug=false)
-    : name_(name) 
-    , pin_(pin)
-    , debug_(debug) {}
+    : name_(name),
+      pin_(pin),
+      debug_(debug) {}
 
     void Initialize() const;
     void On() const;
