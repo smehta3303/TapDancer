@@ -11,56 +11,56 @@
 class Hardware {
  public:
     Hardware() 
-    : relay_1_pin_(0, GpioType::OUTPUT_PIN, debug_)
-    , relay_1_("Relay 1", relay_1_pin_, debug_)
-    , relay_2_pin_(1, GpioType::OUTPUT_PIN, debug_)
-    , relay_2_("Relay 2", relay_2_pin_, debug_)
-    , relay_3_pin_(2, GpioType::OUTPUT_PIN, debug_)
-    , relay_3_("Relay 3", relay_3_pin_, debug_)
-    , relay_4_pin_(3, GpioType::OUTPUT_PIN, debug_)
-    , relay_4_("Relay 4", relay_4_pin_, debug_)
-    , relay_5_pin_(4, GpioType::OUTPUT_PIN, debug_)
-    , relay_5_("Relay 5", relay_5_pin_, debug_)
-    , relay_6_pin_(5, GpioType::OUTPUT_PIN, debug_)
-    , relay_6_("Relay 6", relay_6_pin_, debug_)
-    , relay_7_pin_(6, GpioType::OUTPUT_PIN, debug_)
-    , relay_7_("Relay 7", relay_7_pin_, debug_)
-    , relay_8_pin_(7, GpioType::OUTPUT_PIN, debug_)
-    , relay_8_("Relay 8", relay_8_pin_, debug_)
-    , status_led_pin_(LED_BUILTIN, GpioType::OUTPUT_PIN, debug_)
-    , status_led_("Status Led", status_led_pin_, debug_)
-    , led_1_pin_(27, GpioType::OUTPUT_PIN, debug_)
-    , led_1_("Led 1", led_1_pin_, debug_)
-    , led_2_pin_(28, GpioType::OUTPUT_PIN, debug_)
-    , led_2_("Led 2", led_2_pin_, debug_)
-    , led_3_pin_(29, GpioType::OUTPUT_PIN, debug_)
-    , led_3_("Led 3", led_3_pin_, debug_)
-    , led_4_pin_(30, GpioType::OUTPUT_PIN, debug_)
-    , led_4_("Led 4", led_4_pin_, debug_)
-    , led_5_pin_(31 , GpioType::OUTPUT_PIN, debug_)
-    , led_5_("Led 5", led_5_pin_, debug_)
-    , led_6_pin_(32, GpioType::OUTPUT_PIN, debug_)
-    , led_6_("Led 6", led_6_pin_, debug_)
-    , led_7_pin_(33, GpioType::OUTPUT_PIN, debug_)
-    , led_7_("Led 7", led_7_pin_, debug_)
-    , led_8_pin_(34, GpioType::OUTPUT_PIN, debug_)
-    , led_8_("Led 8", led_8_pin_, debug_) 
-    , fs_1_pin_(35, GpioType::INPUT_WITH_PULLUP, debug_)
-    , fs1_("Footswitch 1", fs_1_pin_, debug_)
-    , fs_2_pin_(36, GpioType::INPUT_WITH_PULLUP, debug_)
-    , fs2_("Footswitch 2", fs_2_pin_, debug_)
-    , fs_3_pin_(37, GpioType::INPUT_WITH_PULLUP, debug_)
-    , fs3_("Footswitch 3", fs_3_pin_, debug_)
-    , fs_4_pin_(38, GpioType::INPUT_WITH_PULLUP, debug_)
-    , fs4_("Footswitch 4", fs_4_pin_, debug_)
-    , fs_5_pin_(39, GpioType::INPUT_WITH_PULLUP, debug_)
-    , fs5_("Footswitch 5", fs_5_pin_, debug_)
-    , fs_6_pin_(40, GpioType::INPUT_WITH_PULLUP, debug_)
-    , fs6_("Footswitch 6", fs_6_pin_, debug_)
-    , fs_7_pin_(41, GpioType::INPUT_WITH_PULLUP, debug_)
-    , fs7_("Footswitch 7", fs_7_pin_, debug_)
-    , fs_8_pin_(23, GpioType::INPUT_WITH_PULLUP, debug_)
-    , fs8_("Footswitch 8", fs_8_pin_, debug_) {}
+    : relay_1_pin_(8, GpioType::OUTPUT_PIN, debug_),
+      relay_1_("Relay 1", relay_1_pin_, debug_),
+      relay_2_pin_(9, GpioType::OUTPUT_PIN, debug_),
+      relay_2_("Relay 2", relay_2_pin_, debug_),
+      relay_3_pin_(10, GpioType::OUTPUT_PIN, debug_),
+      relay_3_("Relay 3", relay_3_pin_, debug_),
+      relay_4_pin_(11, GpioType::OUTPUT_PIN, debug_),
+      relay_4_("Relay 4", relay_4_pin_, debug_),
+      relay_5_pin_(12, GpioType::OUTPUT_PIN, debug_),
+      relay_5_("Relay 5", relay_5_pin_, debug_),
+      relay_6_pin_(24, GpioType::OUTPUT_PIN, debug_),
+      relay_6_("Relay 6", relay_6_pin_, debug_),
+      relay_7_pin_(25, GpioType::OUTPUT_PIN, debug_),
+      relay_7_("Relay 7", relay_7_pin_, debug_),
+      relay_8_pin_(26, GpioType::OUTPUT_PIN, debug_),
+      relay_8_("Relay 8", relay_8_pin_, debug_),
+      status_led_pin_(LED_BUILTIN, GpioType::OUTPUT_PIN, debug_),
+      status_led_("Status Led", status_led_pin_, debug_),
+      led_1_pin_(0, GpioType::OUTPUT_PIN, debug_),
+      led_1_("Led 1", led_1_pin_, debug_),
+      led_2_pin_(1, GpioType::OUTPUT_PIN, debug_),
+      led_2_("Led 2", led_2_pin_, debug_),
+      led_3_pin_(2, GpioType::OUTPUT_PIN, debug_),
+      led_3_("Led 3", led_3_pin_, debug_),
+      led_4_pin_(3, GpioType::OUTPUT_PIN, debug_),
+      led_4_("Led 4", led_4_pin_, debug_),
+      led_5_pin_(4 , GpioType::OUTPUT_PIN, debug_),
+      led_5_("Led 5", led_5_pin_, debug_),
+      led_6_pin_(5, GpioType::OUTPUT_PIN, debug_),
+      led_6_("Led 6", led_6_pin_, debug_),
+      led_7_pin_(6, GpioType::OUTPUT_PIN, debug_),
+      led_7_("Led 7", led_7_pin_, debug_),
+      led_8_pin_(7, GpioType::OUTPUT_PIN, debug_),
+      led_8_("Led 8", led_8_pin_, debug_) ,
+      fs_1_pin_(35, GpioType::INPUT_WITH_PULLUP, debug_),
+      fs1_("Footswitch 1", fs_1_pin_, debug_),
+      fs_2_pin_(36, GpioType::INPUT_WITH_PULLUP, debug_),
+      fs2_("Footswitch 2", fs_2_pin_, debug_),
+      fs_3_pin_(37, GpioType::INPUT_WITH_PULLUP, debug_),
+      fs3_("Footswitch 3", fs_3_pin_, debug_),
+      fs_4_pin_(38, GpioType::INPUT_WITH_PULLUP, debug_),
+      fs4_("Footswitch 4", fs_4_pin_, debug_),
+      fs_5_pin_(39, GpioType::INPUT_WITH_PULLUP, debug_),
+      fs5_("Footswitch 5", fs_5_pin_, debug_),
+      fs_6_pin_(40, GpioType::INPUT_WITH_PULLUP, debug_),
+      fs6_("Footswitch 6", fs_6_pin_, debug_),
+      fs_7_pin_(41, GpioType::INPUT_WITH_PULLUP, debug_),
+      fs7_("Footswitch 7", fs_7_pin_, debug_),
+      fs_8_pin_(23, GpioType::INPUT_WITH_PULLUP, debug_),
+      fs8_("Footswitch 8", fs_8_pin_, debug_) {}
 
     void Initialize() const;
     
