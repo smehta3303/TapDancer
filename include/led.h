@@ -5,6 +5,14 @@
 #include "gpio.h"
 #include "Arduino.h"
 
+
+enum LedState {
+    LED_UNINITIALIZED,
+    LED_OFF,
+    LED_ON,
+    LED_PULSE
+};
+
 class Led {
  public:
     Led (const char* name, const Gpio& pin, const bool debug)
@@ -12,7 +20,8 @@ class Led {
       pin_(pin),
       debug_(debug),
       duty_cycle_(0),
-      pulse_up_(false) {}
+      pulse_up_(false),
+      state_(LedState::LED_UNINITIALIZED) {}
 
     void Initialize() const;
     void On() const;
@@ -23,6 +32,8 @@ class Led {
         return PulseSpeed;
     }
 
+    const LedState GetState() const {return state_;}
+
  private:
     const char* name_;
     const Gpio& pin_;
@@ -30,6 +41,7 @@ class Led {
     
     mutable uint8_t duty_cycle_;
     mutable bool pulse_up_;
+    mutable LedState state_;
 
     static constexpr uint8_t PulseSpeed = 7;
     static constexpr uint8_t MaxPulseValue = (PulseSpeed * (255 / PulseSpeed));

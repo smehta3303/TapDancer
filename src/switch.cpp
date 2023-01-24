@@ -26,16 +26,16 @@ void Switch::Debounce() const {
 
     if(debounce_count_ >= MaxDebounceCount) {
         if (pin_state == 0) {
-            state_ = SwitchState::PRESSED;
+            state_ = SwitchState::SW_PRESSED;
         } else {
-            state_ = SwitchState::RELEASED;
+            state_ = SwitchState::SW_RELEASED;
         }
         debounce_count_ = 0;
     } 
 }
 
-SwitchState Switch::GetState() const {
-    SwitchState state = SwitchState::UNINITIALIZED;
+const SwitchState Switch::GetState() const {
+    SwitchState state = SwitchState::SW_UNINITIALIZED;
     
     noInterrupts();
     state = state_;
