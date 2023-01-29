@@ -29,7 +29,7 @@ class Gpio {
 
     void Initialize() const;
     void On() const;
-    void On(const uint8_t duty_cycle) const;
+    void SetDutyCycle(const uint8_t duty_cycle) const;
     void Off() const;
     void Toggle() const;
     uint8_t Read() const;

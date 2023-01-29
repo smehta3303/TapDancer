@@ -3,21 +3,28 @@
 
 
 void Led::Initialize() const {
-    pin_.Initialize();
+    if (initialized_) {
+        return;
+    }
 
+    pin_.Initialize();
+    
     Serial.print(name_);
     Serial.println(" Initialized");
+    initialized_ = true;
 }
 
 void Led::On() const {
-    pin_.On(255);
+    duty_cycle_ = 255;
+    pin_.SetDutyCycle(duty_cycle_);
     state_ = LedState::LED_ON;
 }
 
 void Led::Off() const {
-   pin_.On(0);
-   duty_cycle_ = 0;
-   state_ = LedState::LED_OFF;
+    duty_cycle_ = 0;
+    pin_.SetDutyCycle(duty_cycle_);
+  
+    state_ = LedState::LED_OFF;
 }
 
 void Led::Toggle() const {
@@ -42,6 +49,6 @@ void Led::Pulse() const {
     } else {
         duty_cycle_ -= PulseSpeed;
     }
-    pin_.On(duty_cycle_);
+    pin_.SetDutyCycle(duty_cycle_);
     state_ = LedState::LED_PULSE;
 }

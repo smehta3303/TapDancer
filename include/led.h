@@ -21,7 +21,8 @@ class Led {
       debug_(debug),
       duty_cycle_(0),
       pulse_up_(false),
-      state_(LedState::LED_UNINITIALIZED) {}
+      state_(LedState::LED_UNINITIALIZED),
+      initialized_(false) {}
 
     void Initialize() const;
     void On() const;
@@ -33,6 +34,7 @@ class Led {
     }
 
     const LedState GetState() const {return state_;}
+    static constexpr uint8_t PulseSpeed = 15;
 
  private:
     const char* name_;
@@ -42,8 +44,8 @@ class Led {
     mutable uint8_t duty_cycle_;
     mutable bool pulse_up_;
     mutable LedState state_;
+    mutable bool initialized_;
 
-    static constexpr uint8_t PulseSpeed = 7;
     static constexpr uint8_t MaxPulseValue = (PulseSpeed * (255 / PulseSpeed));
 };
 
