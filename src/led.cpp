@@ -8,8 +8,7 @@ void Led::Initialize() const {
     }
 
     pin_.Initialize();
-    Off();
-
+    
     Serial.print(name_);
     Serial.println(" Initialized");
     initialized_ = true;

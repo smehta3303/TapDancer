@@ -4,20 +4,27 @@
 
 // constants
 static constexpr uint16_t DebounceTimerInterval = 10 * 1000;    // 10 ms
-static constexpr uint8_t LoopPeriod = 50;      // 100 ms
+static constexpr uint8_t LoopPeriod = 50;      // 50 ms
 
 elapsedMillis run_interval = 0;
 
 Hardware hw;
-LedController led_controller(hw.GetLed1(), hw.GetLed2(), hw.GetLed3(), hw.GetLed4(),
-                             hw.GetLed5(), hw.GetLed6(), hw.GetLed7(), hw.GetLed8(), 
+LedController led_controller(hw.GetStatusLed(),
+                             hw.GetLed1(), 
+                             hw.GetLed2(), 
+                             hw.GetLed3(), 
+                             hw.GetLed4(),
+                             hw.GetLed5(), 
+                             hw.GetLed6(), 
+                             hw.GetLed7(), 
+                             hw.GetLed8(), 
                              LoopPeriod);
 
 
 IntervalTimer debouncer;
 LedState led_state = LedState::LED_OFF;
 
-SwitchState previous_switch_state = SwitchState::SW_UNINITIALIZED;
+SwitchState previous_switch_state = SwitchState::SW_RELEASED;
 uint32_t switch_pressed_ticks = 0;
 
 void setup() {
@@ -46,48 +53,22 @@ void loop() {
         }
        
         process_events();
-        update_leds();
+        led_controller.Run();
     }
 }
 
 void process_events() {
-
     SwitchEvent event = get_switch_events();
-    LedState current_state = hw.GetLed1().GetState();
-    
-    switch (event) {
-        case SwitchEvent::FS1_PRESSED:
-            if(current_state == LedState::LED_OFF) {
-                led_state = LedState::LED_ON;
-                Serial.println("FS1_PRESSED: LED_ON");
-            } else if (current_state == LED_PULSE) {
-                led_state = LedState::LED_ON;
-                Serial.println("FS1_CONFIGURE: LED_ON");
-            } else {
-                led_state = LedState::LED_OFF;
-                Serial.println("FS1_PRESSED: LED_OFF");
-            }
-            break;
 
-        case SwitchEvent::FS1_CONFIGURE:
-            if(current_state == LedState::LED_OFF) {
-                led_state = LedState::LED_PULSE;
-                Serial.println("FS1_CONFIGURE: LED_PULSE");
-            } else {
-                led_state = LedState::LED_OFF;
-                Serial.println("FS1_CONFIGURE: LED_OFF");
-            }
-            break;
-        case SwitchEvent::FS1_RELEASED:
-            led_state = LedState::LED_OFF;
-            Serial.println("FS1_CONFIGURE: LED_OFF");
-            break;
-
-        case SwitchEvent::NO_EVENT:
-            return;
-        default:
-            led_state = LedState::LED_OFF;
+    if (event != SwitchEvent::NO_EVENT) {
+        if (event == SwitchEvent::CONFIGURE) {
+            Serial.println("process_events: SendSwitchEvent: SwitchEvent::CONFIGURE");
+        } else {
+            Serial.println("process_events: SendSwitchEvent: SwitchEvent::PRESSED");
+        }
+        led_controller.SendSwitchEvent(SwitchId::FS1, event);
     }
+    
 }
 
 SwitchEvent get_switch_events() {
@@ -95,16 +76,13 @@ SwitchEvent get_switch_events() {
     SwitchEvent event = SwitchEvent::NO_EVENT;
 
     if (previous_switch_state != switch_state) {
-        
         if(switch_state == SwitchState::SW_PRESSED) {
             switch_pressed_ticks = millis();
         } else if (switch_state == SwitchState::SW_RELEASED) {
             if ((millis() - switch_pressed_ticks) >= 3000) {
-                event = SwitchEvent::FS1_CONFIGURE;
+                event = SwitchEvent::CONFIGURE;
             } else if (previous_switch_state == SwitchState::SW_PRESSED) {
-                event = SwitchEvent::FS1_PRESSED;
-            } else {
-                event = SwitchEvent::FS1_RELEASED;
+                event = SwitchEvent::PRESSED;
             }
         }
         previous_switch_state = switch_state;
