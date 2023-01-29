@@ -35,6 +35,7 @@ void LedController::Run() const {
             case SwitchEvent::PRESSED:
                 Serial.println("LedController::Run: event: SwitchEvent::PRESSED");
                 if (led_state != LedState::LED_ON) {
+
                     led.On();
                     Serial.println("LedController::Run: event: SwitchEvent::PRESSED: ON");
                 } else {
@@ -44,6 +45,7 @@ void LedController::Run() const {
                 break;
             case SwitchEvent::CONFIGURE:
                 Serial.println("LedController::Run: event: SwitchEvent::CONFIGURE");
+
                 if (led_state != LedState::LED_PULSE) {
                     led.Pulse();
                     Serial.println("LedController::Run: event: SwitchEvent::CONFIGURE: PULSE");
