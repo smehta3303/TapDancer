@@ -36,7 +36,11 @@ class LedController {
           pulse_count_(0),
           leds_toggled_(false),
           loop_period_(loop_period),
-          blink_ticks_(500/loop_period),
+          blink_ticks_(1000/loop_period),
+          on_blink_ticks_(50/loop_period),
+          current_tick_(0),
+          next_status_on_tick_(0),
+          next_status_off_tick_(0),
           switch_event_() {}
 
     void Initialize() const;
@@ -57,10 +61,13 @@ class LedController {
     mutable bool leds_toggled_;
     const uint8_t loop_period_;
     const uint16_t blink_ticks_;
+    const uint16_t on_blink_ticks_;
+    mutable uint32_t current_tick_;
+    mutable uint32_t next_status_on_tick_;
+    mutable uint32_t next_status_off_tick_;
     mutable struct LedSwitchEvent switch_event_;
 
     static constexpr uint8_t MaxPulseCount = 2 * (255 / Led::PulseSpeed);
-   
 };
 
 
