@@ -22,21 +22,25 @@ LedController led_controller(hw.GetStatusLed(),
 
 
 IntervalTimer debouncer;
-LedState led_state = LedState::LED_OFF;
 
 SwitchState previous_switch_state = SwitchState::SW_RELEASED;
 uint32_t switch_pressed_ticks = 0;
 
 void setup() {
     Serial.begin(115200);
+    while(!Serial) {}
     
     // HW setup
     hw.Initialize();
 
-    led_controller.Initialize();
-
     debouncer.priority(128);    // default priority
     debouncer.begin(debounce_callback, DebounceTimerInterval);
+
+    led_controller.Initialize();
+    while (!led_controller.InitSequenceRan()) {
+        led_controller.RunLedInitSequence();
+        delay(LoopPeriod);
+    }
 }
 
 void debounce_callback() {
@@ -46,11 +50,6 @@ void debounce_callback() {
 void loop() {
     if(run_interval >= LoopPeriod) {
         run_interval = 0;
-
-        if (!led_controller.InitSequenceRan()) {
-            led_controller.RunLedInitSequence();
-            return;
-        }
        
         process_events();
         led_controller.Run();
@@ -88,21 +87,4 @@ SwitchEvent get_switch_events() {
         previous_switch_state = switch_state;
     }
     return event;
-}
-
-void update_leds() {
-    switch(led_state) {
-        case LedState::LED_ON:
-             hw.GetLed1().On();
-             break;
-
-        case LedState::LED_PULSE:
-            hw.GetLed1().Pulse();
-            break;
-
-        case LedState::LED_OFF:
-        default:
-            hw.GetLed1().Off();
-            break;
-    }
 }

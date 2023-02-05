@@ -32,7 +32,7 @@ class LedController {
         : status_led_(status_led),
           leds_{led1, led2, led3, led4, led5, led6, led7, led8},
           state_(LCState::LC_UNINITIALIZED),
-          initialized_(false),
+          init_seq_complete_(false),
           pulse_count_(0),
           leds_toggled_(false),
           loop_period_(loop_period),
@@ -42,7 +42,7 @@ class LedController {
     void Initialize() const;
     void Run() const;
     void SendSwitchEvent(const SwitchId id, const SwitchEvent event) const;
-    bool InitSequenceRan() const {return initialized_;}
+    bool InitSequenceRan() const {return init_seq_complete_;}
     void RunLedInitSequence() const;
     const Led& GetLedFromSwitchId(const SwitchId id) const;
 
@@ -52,7 +52,7 @@ class LedController {
     const Led& status_led_;
     const std::reference_wrapper<const Led> leds_[MaxLedCount];
     mutable LCState state_;
-    mutable bool initialized_;
+    mutable bool init_seq_complete_;
     mutable uint8_t pulse_count_;
     mutable bool leds_toggled_;
     const uint8_t loop_period_;

@@ -35,7 +35,6 @@ void LedController::Run() const {
             case SwitchEvent::PRESSED:
                 Serial.println("LedController::Run: event: SwitchEvent::PRESSED");
                 if (led_state != LedState::LED_ON) {
-
                     led.On();
                     Serial.println("LedController::Run: event: SwitchEvent::PRESSED: ON");
                 } else {
@@ -90,7 +89,7 @@ void LedController::SendSwitchEvent(const SwitchId id, const SwitchEvent event) 
 }
 
 void LedController::RunLedInitSequence() const {
-    if (initialized_) {
+    if (init_seq_complete_) {
         return;
     }
 
@@ -132,6 +131,6 @@ void LedController::RunLedInitSequence() const {
         for (uint8_t i = 0; i < MaxLedCount; i++) {
             leds_[i].get().Off();
         }
-        initialized_ = true;
+        init_seq_complete_ = true;
     }
 }
