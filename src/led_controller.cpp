@@ -25,6 +25,16 @@ const Led& LedController::GetLedFromSwitchId(const SwitchId id) const {
 
 void LedController::Run() const {
 
+    current_tick_++;
+
+    if (current_tick_ >= next_status_on_tick_) {
+        next_status_on_tick_ = current_tick_ + blink_ticks_;
+        status_led_.On();
+    } else if (current_tick_ >= next_status_off_tick_) {
+        next_status_off_tick_ = current_tick_ + on_blink_ticks_;
+        status_led_.Off();
+    } 
+
     // process events
     if (switch_event_.dirty) {
         Serial.println("LedController::Run: Got event!");
